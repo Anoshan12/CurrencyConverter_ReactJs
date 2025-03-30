@@ -27,36 +27,36 @@ export default function ConversionResult({
   const formattedDate = new Date(lastUpdated).toLocaleString();
   
   return (
-    <Card className="w-full max-w-md mx-auto p-6 mt-4 shadow-lg animate-fade-in animate-slide-up bg-primary/5">
+    <Card className="w-full max-w-md mx-auto p-6 mt-4 shadow-lg animate-fade-in animate-slide-up bg-secondary/5">
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <span className="text-xl">{fromCurrencyData?.flag}</span>
-            <span className="text-lg font-medium">{fromCurrency}</span>
+            <span className="text-slate-300">{fromCurrencyData?.flag}</span>
+            <span className="text-xl font-medium text-secondary">{fromCurrency}</span>
           </div>
-          <div className="text-xl">→</div>
+          <div className="text-xl text-secondary">→</div>
           <div className="flex items-center gap-2">
-            <span className="text-xl">{toCurrencyData?.flag}</span>
-            <span className="text-lg font-medium">{toCurrency}</span>
+            <span className="text-slate-300">{toCurrencyData?.flag}</span>
+            <span className="text-xl font-medium text-secondary">{toCurrency}</span>
           </div>
         </div>
         
         <div className="grid grid-cols-2 gap-4 py-4 border-y">
           <div className="text-center">
-            <p className="text-sm text-muted-foreground">You Send</p>
-            <p className="text-xl font-bold">
+            <p className="text-slate-300 text-muted-foreground">You Send</p>
+            <p className="text-xl font-bold text-secondary">
               {getCurrencySymbol(fromCurrency)} {amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-muted-foreground">You Get</p>
-            <p className="text-xl font-bold text-primary">
+            <p className="text-slate-300 text-muted-foreground">You Get</p>
+            <p className="text-xl font-bold text-secondary">
               {getCurrencySymbol(toCurrency)} {convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
         </div>
         
-        <div className="text-sm text-muted-foreground">
+        <div className="text-medium text-muted-foreground text-secondary">
           <p className="flex justify-between">
             <span>Exchange Rate:</span>
             <span className="font-medium">

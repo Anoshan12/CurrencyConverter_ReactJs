@@ -9,6 +9,7 @@ export const currencies: Currency[] = [
   { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
   { code: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
   { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
+  { code: "LKR", name: "Sri Lankan Rupee", flag: "🇱🇰" },
   { code: "INR", name: "Indian Rupee", flag: "🇮🇳" },
   { code: "MXN", name: "Mexican Peso", flag: "🇲🇽" },
   { code: "BRL", name: "Brazilian Real", flag: "🇧🇷" },

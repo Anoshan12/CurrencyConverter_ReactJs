@@ -9,6 +9,7 @@ export function getCurrencySymbol(currencyCode: string): string {
     CHF: "CHF",
     CNY: "¥",
     INR: "₹",
+    LKR: "Rs",
     MXN: "$",
     BRL: "R$",
     KRW: "₩",

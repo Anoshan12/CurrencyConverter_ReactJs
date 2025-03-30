@@ -12,7 +12,7 @@ export default function CurrencyConverter() {
   // State for the form
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(0);
   
   // State for conversion results
   const [showResult, setShowResult] = useState(false);
