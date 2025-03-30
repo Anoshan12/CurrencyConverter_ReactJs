@@ -1,29 +1,12 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchExchangeRate } from "@/lib/api";
 
-export function useExchangeRates() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const getExchangeRate = async (fromCurrency: string, toCurrency: string): Promise<number> => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      const rate = await fetchExchangeRate(fromCurrency, toCurrency);
-      return rate;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to fetch exchange rate";
-      setError(errorMessage);
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return {
-    getExchangeRate,
-    isLoading,
-    error
-  };
+export function useExchangeRates(fromCurrency: string, toCurrency: string) {
+  return useQuery({
+    queryKey: ['/api/exchange-rate', fromCurrency, toCurrency],
+    queryFn: () => fetchExchangeRate(fromCurrency, toCurrency),
+    enabled: !!fromCurrency && !!toCurrency && fromCurrency !== toCurrency,
+    refetchInterval: 60000, // Auto-update every minute
+    staleTime: 55000, // Consider data stale after 55 seconds
+  });
 }

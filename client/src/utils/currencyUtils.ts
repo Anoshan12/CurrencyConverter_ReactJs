@@ -1,16 +1,21 @@
 export function getCurrencySymbol(currencyCode: string): string {
-  const symbols: { [key: string]: string } = {
-    'USD': '$',
-    'EUR': '€',
-    'GBP': '£',
-    'JPY': '¥',
-    'CAD': 'C$',
-    'AUD': 'A$',
-    'CHF': 'Fr',
-    'CNY': '¥',
-    'INR': '₹',
-    'BRL': 'R$'
+  const symbols: Record<string, string> = {
+    USD: "$",
+    EUR: "€",
+    GBP: "£",
+    JPY: "¥",
+    AUD: "A$",
+    CAD: "C$",
+    CHF: "CHF",
+    CNY: "¥",
+    INR: "₹",
+    MXN: "$",
+    BRL: "R$",
+    KRW: "₩",
+    SGD: "S$",
+    NZD: "NZ$",
+    HKD: "HK$",
   };
-  
+
   return symbols[currencyCode] || currencyCode;
 }
