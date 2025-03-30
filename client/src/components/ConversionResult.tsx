@@ -60,7 +60,12 @@ export default function ConversionResult({
           <p className="flex justify-between">
             <span>Exchange Rate:</span>
             <span className="font-medium">
-              1 {fromCurrency} = {getCurrencySymbol(toCurrency)} {exchangeRate.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
+              {fromCurrency === toCurrency ? (
+                // For same currency, show 1:1 rate
+                `1 ${fromCurrency} = ${getCurrencySymbol(toCurrency)} 1.0000`
+              ) : (
+                `1 ${fromCurrency} = ${getCurrencySymbol(toCurrency)} ${exchangeRate.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}`
+              )}
             </span>
           </p>
           <p className="flex justify-between mt-1">

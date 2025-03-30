@@ -57,19 +57,42 @@ export default function CurrencyConverter() {
     }
     
     if (fromCurrency === toCurrency) {
-      toast({
-        title: "Same currency",
-        description: "Please select different currencies to convert",
-        variant: "destructive"
-      });
+      // If same currency, just show the same amount
+      setConvertedAmount(amount);
+      setShowResult(true);
+      
+      // Add to history for same currency conversions
+      const newHistoryItem: ConversionHistoryItem = {
+        from: {
+          code: fromCurrency,
+          amount: amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        },
+        to: {
+          code: toCurrency,
+          amount: amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        },
+        timestamp: Date.now()
+      };
+      
+      setHistory(prevHistory => [newHistoryItem, ...prevHistory].slice(0, 10));
       return;
     }
     
     try {
-      // If we already have the exchange rate, use it, otherwise refetch
-      const rate = exchangeRate ?? await refetch().then(result => result.data!);
+      console.log("Converting with current exchange rate:", exchangeRate);
       
-      if (!rate) {
+      // If we already have the exchange rate, use it, otherwise refetch
+      const rate = exchangeRate || await refetch().then(result => {
+        console.log("Refetch result:", result);
+        if (result.error) {
+          console.error("Refetch error:", result.error);
+          throw result.error;
+        }
+        return result.data;
+      });
+      
+      if (rate === undefined || rate === null) {
+        console.error("No rate available after refetch");
         toast({
           title: "Error",
           description: "Failed to fetch exchange rate",
@@ -130,13 +153,13 @@ export default function CurrencyConverter() {
         onConvert={handleConvert}
       />
       
-      {showResult && exchangeRate && (
+      {showResult && (
         <ConversionResult
           fromCurrency={fromCurrency}
           toCurrency={toCurrency}
           amount={amount}
           convertedAmount={convertedAmount}
-          exchangeRate={exchangeRate}
+          exchangeRate={fromCurrency === toCurrency ? 1 : (exchangeRate || 1)}
           lastUpdated={new Date().toISOString()}
         />
       )}
